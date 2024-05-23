@@ -1,0 +1,92 @@
+<%- include('partials/header.ejs'); -%>
+
+<div class="container">
+  <!-- Today List -->
+  <div class="box">
+    <div id="heading">
+      <h1>Today</h1>
+    </div>
+    <% for(let item of listItems1){ %>
+    <div class="item">
+      <form action="/delete1" method="post">
+        <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
+      </form>
+      <p id="todayTitle<%= item.id %>"><%= item.title %></p>
+      <form class="edit" action="/edit1" method="post">
+        <input type="hidden" name="updatedItemId" value="<%= item.id %>">
+        <input id="todayInput<%= item.id %>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off" hidden="true" />
+        <button id="todayDone<%= item.id %>" class="edit" type="submit" hidden><img class="icon" src="/assets/icons/check-solid.svg" alt="tick image"></button>
+      </form>
+      <button id="todayEdit<%= item.id %>" class="edit" onclick="handler('today', '<%= item.id %>')"><img class="icon" src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
+    </div>
+    <% } %>
+    <form class="item" action="/add" method="post">
+      <input type="text" name="newItem" placeholder="New Item" autocomplete="off" />
+      <input type="hidden" name="list" value="Today">
+      <button class="add" type="submit" name="list" value="Today">+</button>
+    </form>
+  </div>
+
+  <!-- Weekly List -->
+  <div class="box">
+    <div id="heading">
+      <h1>Weekly</h1>
+    </div>
+    <% for(let item of listItems2){ %>
+    <div class="item">
+      <form action="/delete2" method="post">
+        <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
+      </form>
+      <p id="weeklyTitle<%= item.id %>"><%= item.title %></p>
+      <form class="edit" action="/edit2" method="post">
+        <input type="hidden" name="updatedItemId" value="<%= item.id %>">
+        <input id="weeklyInput<%= item.id %>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off" hidden="true" />
+        <button id="weeklyDone<%= item.id %>" class="edit" type="submit" hidden><img class="icon" src="/assets/icons/check-solid.svg" alt="tick image"></button>
+      </form>
+      <button id="weeklyEdit<%= item.id %>" class="edit" onclick="handler('weekly', '<%= item.id %>')"><img class="icon" src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
+    </div>
+    <% } %>
+    <form class="item" action="/add" method="post">
+      <input type="text" name="newItem" placeholder="New Item" autocomplete="off" />
+      <input type="hidden" name="list" value="Weekly">
+      <button class="add" type="submit" name="list" value="Weekly">+</button>
+    </form>
+  </div>
+
+  <!-- Monthly List -->
+  <div class="box">
+    <div id="heading">
+      <h1>Monthly</h1>
+    </div>
+    <% for(let item of listItems3){ %>
+    <div class="item">
+      <form action="/delete3" method="post">
+        <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>">
+      </form>
+      <p id="monthlyTitle<%= item.id %>"><%= item.title %></p>
+      <form class="edit" action="/edit3" method="post">
+        <input type="hidden" name="updatedItemId" value="<%= item.id %>">
+        <input id="monthlyInput<%= item.id %>" type="text" name="updatedItemTitle" value="<%= item.title %>" autocomplete="off" hidden="true" />
+        <button id="monthlyDone<%= item.id %>" class="edit" type="submit" hidden><img class="icon" src="/assets/icons/check-solid.svg" alt="tick image"></button>
+      </form>
+      <button id="monthlyEdit<%= item.id %>" class="edit" onclick="handler('monthly', '<%= item.id %>')"><img class="icon" src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
+    </div>
+    <% } %>
+    <form class="item" action="/add" method="post">
+      <input type="text" name="newItem" placeholder="New Item" autocomplete="off" />
+      <input type="hidden" name="list" value="Monthly">
+      <button class="add" type="submit" name="list" value="Monthly">+</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function handler(listType, id) {
+    document.getElementById(listType + "Title" + id).setAttribute("hidden", true);
+    document.getElementById(listType + "Edit" + id).setAttribute("hidden", true);
+    document.getElementById(listType + "Done" + id).removeAttribute("hidden");
+    document.getElementById(listType + "Input" + id).removeAttribute("hidden");
+  }
+</script>
+
+<%- include('partials/footer.ejs'); -%>
